@@ -19,4 +19,4 @@ sjPlot::tab_model(
 source("R/html2pdf.R")
 
 # Create tex
-html2pdf(filename = "temp.html", page_width = 15, build_pdf = TRUE, silent = TRUE)
+html2pdf(filename = "temp.html", page_width = 13, build_pdf = TRUE, silent = TRUE)
