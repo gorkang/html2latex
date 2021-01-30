@@ -5,7 +5,11 @@ Convert sjPlot::tab_model() html tables to tex and pdf.
 You will also find an example.Rmd showing how to use a sjPlot::tab_model() html table inside a Rmd document that renders as a pdf.  
 
 
-We use [Libreoffice](https://www.libreoffice.org/) and [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/). To use the `html2pdf()` function you need to download the R and src folders. They contain the actual funcions and main source files from Writer2latex respectively.   
+We use [Libreoffice](https://www.libreoffice.org/) to go from `html` to `odt` and [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/) for the `odt` to `tex` step. 
+
+To use the `html2pdf()` function you need to download the R and src folders. They contain the actual funcions and main source files from Writer2latex, respectively. You will also need to have [Libreoffice](https://www.libreoffice.org/) installed.  
+
+This has been tested in a Ubuntu 20.04 system.  
 
 
 ## Example  
