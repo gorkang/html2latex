@@ -51,7 +51,7 @@ Using the `html2pdf()` we can transform it to .tex.
 source("R/html2pdf.R")
 
 # Create tex and pdf
-html2pdf(filename = "temp.html", page_width = 13, build_pdf = TRUE, silent = TRUE)
+html2pdf(filename = "temp.html", table_width = 13, build_pdf = TRUE, silent = TRUE)
 
 ```
 

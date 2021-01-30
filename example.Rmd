@@ -47,7 +47,7 @@ source(here::here("R/html2pdf.R"))
 source(here::here("R/tex2Rmd.R"))
 
 # Create tex
-html2pdf(filename = "temp.html", page_width = 13, build_pdf = TRUE, silent = TRUE)
+html2pdf(filename = "temp.html", table_width = 13, build_pdf = TRUE, silent = TRUE)
 
 # pdf file created in: /.../html2latex/temp.pdf
 # tex file created in: /.../html2latex/temp.tex

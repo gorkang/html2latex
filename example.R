@@ -12,11 +12,11 @@ sjPlot::tab_model(
   show.re.var = FALSE,
   p.style = "scientific",
   emph.p = TRUE,
-  file = "temp.html")
+  file = "TEMP/temp.html")
 
 
 # Load html2pdf.R function
 source("R/html2pdf.R")
 
 # Create tex
-html2pdf(filename = "temp.html", page_width = 13, build_pdf = TRUE, silent = TRUE)
+html2pdf(filename = "temp.html", table_width = 8, page_width = 8, page_height = 5, build_pdf = TRUE, silent = TRUE)
