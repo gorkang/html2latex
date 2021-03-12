@@ -4,3 +4,4 @@
 .Ruserdata
 *.html
 *.tex
+inst/doc
