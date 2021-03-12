@@ -45,10 +45,10 @@ html2pdf <-
            mac = TRUE,
            path_w2l = NULL) {
     if(is.null(path_w2l)){
-      path_w2l <- dir(system.file("extdata", package = "html2latex"))
+      path_w2l <- system.file("extdata", package = "html2latex")
     }
     # Find w2l files
-    w2l_file <- list.files(path = path_w2l, pattern = "w2l$", recursive = TRUE)
+    w2l_file <- list.files(path = path_w2l, pattern = "w2l", recursive = TRUE)
     if (length(w2l_file) == 0) {
       stop(
         "Writer2latex not found in folder: '", path_w2l, "'\n",
@@ -78,10 +78,10 @@ html2pdf <-
         soffice <- "soffice"
       }
       invisible(system(paste(soffice, "--convert-to odt", filename), intern = TRUE)) # HTML to ODT
-      invisible(system(paste0("./", w2l_file, " ", odt_file), intern = TRUE))  # ODT to TEX
+      invisible(system(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
     } else {
       system(paste(soffice, "--convert-to odt", filename))
-      system(paste0("./", w2l_file, " ", odt_file))
+      system(paste0(file.path(path_w2l, w2l_file), " ", odt_file))
     }
     if(style) {
       clean_tex(tex_file_output, table_width = table_width,
