@@ -1,5 +1,5 @@
 Package: html2latex
-Title: Convertin sjPlot Models To LaTeX
+Title: Converting sjPlot Models To LaTeX
 Version: 0.0.9000
 Authors@R: c(
     person(given = "Gorka",
@@ -11,16 +11,16 @@ Authors@R: c(
     role = c("ctb"))
     )
 Description: The sjPlot package creates beautiful tables for your statistical 
-  analysis but it is currently not possible to easily save the output 
+  analysis, but it is currently not possible to easily save the output 
   (html tables) as tex or pdf documents, or include them in Rmd documents.
-  html2latex offers this functionality
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+  html2latex offers this functionality.
+License: MIT + file LICENSE
 Depends: 
     R (>= 4.0)
 Imports: 
     sjPlot (>= 2.8.7),
-    lme4 (>= 1.1.26)
+    lme4 (>= 1.1.26),
+    stringr (>= 1.4.0)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
