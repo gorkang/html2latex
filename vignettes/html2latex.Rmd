@@ -45,28 +45,15 @@ model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
 table = sjPlot::tab_model(model, file = "temp.html")
 
 # Create tex
-html2pdf(filename = "temp.html", table_width = 13, build_pdf = TRUE, silent = TRUE, mac = TRUE)
-```
-```
-library(html2latex)
-library(lme4)
-library(sjPlot)
-
-# This is a terrible model
-model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
-
-# We save the sjPlot table to an .html file
-table = sjPlot::tab_model(model, file = "temp.html")
-
-# Create tex
 html2pdf(filename = "temp.html", table_width = 13, build_pdf = TRUE, silent = TRUE)
 ```
+
 
 \newpage
 
 ## tab_model() html tables in a Rmd document
 
-You can include tab_model() table in a Rmarkdown pdf in three steps: 
+You can include `sjPlot::tab_model()` html tables in a Rmarkdown document that outputs as pdf in three steps:
 
 
 ### 1. YAML header

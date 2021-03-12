@@ -26,23 +26,25 @@ the extdata folder.
 
 Create a `sjPlot::tab_model()` and save it as html.
 
-    library(html2latex)
-    library(lme4)
-    library(sjPlot)
-
-    # This is a terrible model
-    model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
-
-    # We save the sjPlot table to an .html file
-
-    sjPlot::tab_model(
-      model,
-      show.r2 = TRUE,
-      show.icc = FALSE,
-      show.re.var = FALSE,
-      p.style = "scientific",
-      emph.p = TRUE,
-      file = "temp.html")
+``` r
+  library(html2latex)
+  library(lme4)
+  library(sjPlot)
+  
+  # This is a terrible model
+  model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
+  
+  # We save the sjPlot table to an .html file
+  
+  TAB = sjPlot::tab_model(
+    model,
+    show.r2 = TRUE,
+    show.icc = FALSE,
+    show.re.var = FALSE,
+    p.style = "scientific",
+    emph.p = TRUE,
+    file = "temp.html")
+```
 
 ![](img/sjplot.png)
 
@@ -93,7 +95,7 @@ of the `.tex` code that cause conflicts when rendering the Rmd document.
 # Create table.txt to be able to use it in Rmd documents
 tex2Rmd("temp.tex")
 
-# File with table code created in: table.txt
+#> File with table code created in: table.txt
 ```
 
 The tex file created with html2pdf can be rendered as a pdf by opening

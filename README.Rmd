@@ -18,7 +18,7 @@ Convert `sjPlot::tab_model()` html tables to tex and pdf with `html2pdf()` and u
 
 html2latex is currently only available on Github.
 
-``` r
+```{r}
 # remotes::install_github("gorkang/html2latex")
 library("html2latex")
 ```
@@ -38,30 +38,32 @@ the extdata folder.
 
 Create a `sjPlot::tab_model()` and save it as html.
 
-    library(html2latex)
-    library(lme4)
-    library(sjPlot)
-    
-    # This is a terrible model
-    model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
-    
-    # We save the sjPlot table to an .html file
-    
-    sjPlot::tab_model(
-      model,
-      show.r2 = TRUE,
-      show.icc = FALSE,
-      show.re.var = FALSE,
-      p.style = "scientific",
-      emph.p = TRUE,
-      file = "temp.html")
+```{r message=FALSE, warning=FALSE}
+  library(html2latex)
+  library(lme4)
+  library(sjPlot)
+  
+  # This is a terrible model
+  model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
+  
+  # We save the sjPlot table to an .html file
+  
+  TAB = sjPlot::tab_model(
+    model,
+    show.r2 = TRUE,
+    show.icc = FALSE,
+    show.re.var = FALSE,
+    p.style = "scientific",
+    emph.p = TRUE,
+    file = "temp.html")
+```
 
 ![](img/sjplot.png)
 
 
 Using the `html2pdf()` we can transform the html output of `sjPlot::tab_model()` to .tex. We can also compile to pdf in one step with the parameter `build_pdf = TRUE`.  
 
-``` r
+```{r message=FALSE, warning=FALSE}
 # Create tex and pdf
 
 html2pdf(filename = "temp.html", 
@@ -74,6 +76,7 @@ html2pdf(filename = "temp.html",
 #> pdf file created in: /.../html2latex/temp.pdf
 #> tex file created in: /.../html2latex/temp.tex
 ```
+
 
 ![](img/html2latex.png)
 
@@ -101,11 +104,11 @@ The YAML heather of the .Rmd document must include this:
 
 The `tex2Rmd()` function creates a `.txt` file getting rid of the parts of the `.tex` code that cause conflicts when rendering the Rmd document.  
 
-``` r
+```{r message=FALSE, warning=FALSE}
 # Create table.txt to be able to use it in Rmd documents
 tex2Rmd("temp.tex")
 
-# File with table code created in: table.txt
+#> File with table code created in: table.txt
 ```
 
 The tex file created with html2pdf can be rendered as a pdf by opening the tex file in Rstudio and using the `Compile PDF` button. But if you want to use the table specific code inside a Rmd file (from `\begin{longtable}` to `\end{longtable}`), we need to extract it first. This is automatically done by the ´tex2Rmd()´ function.  
