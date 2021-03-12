@@ -58,17 +58,21 @@ to pdf in one step.
 
 ``` r
 # Create tex and pdf
-# This readme was knitted on a Mac, therefore mac = TRUE
-html2pdf(filename = "temp.html", table_width = 13, silent = TRUE, style = TRUE, build_pdf = TRUE, mac = TRUE, clean = TRUE)
+
+html2pdf(filename = "temp.html", 
+  table_width = 13, 
+   silent = TRUE, 
+   style = TRUE, 
+   build_pdf = TRUE, 
+   clean = TRUE)
+
+#> pdf file created in: /.../html2latex/temp.pdf
 #> 
-#> pdf file created in: /Volumes/timecapsule/html2latex/temp.pdf
-#> 
-#> tex file created in: /Volumes/timecapsule/html2latex/temp.tex
+#> tex file created in: /.../html2latex/temp.tex
 ```
 
-If we create a pdf using `pdflatex` the end result looks like this:
+Using the `html2pdf()` we can transform the html output of `sjPlot::tab_model()` to .tex. We can also compile to pdf in one step.
 
-![](img/html2latex.png)
 
 ## tex2Rmd
 
@@ -87,12 +91,15 @@ The YAML heather of the .Rmd document must include this:
     - \makeatletter
     - \newcommand\arraybslash{\let\\\@arraycr}
 
+
+---  
+
+
 ### 2\. Extract the table bit from the tex file
 
-The tex file created with html2pdf can be rendered as a pdf by opening
-the tex file in Rstudio and using the `Compile PDF` button. But if you
-want to use the table code (from `\begin{longtable}` to
-`\end{longtable}`), we need to extract it first.
+The `tex2Rmd()` function creates a `.txt` file getting rid of the parts 
+of the `.tex` code that cause conflicts when rendering the Rmd document. 
+
 
 ``` r
 # Create table.txt to be able to use it in Rmd documents
@@ -100,6 +107,13 @@ tex2Rmd("temp.tex")
 
 # File with table code created in: table.txt
 ```
+
+The tex file created with html2pdf can be rendered as a pdf by opening 
+the tex file in Rstudio and using the `Compile PDF` button. But if you
+want to use the table code inside a Rmd file (from `\begin{longtable}`
+to `\end{longtable}`), we need to extract it first. This is automatically
+done by the ´tex2Rmd()´ function
+
 
 ### 3\. Use this code in the Rmd document.
 
