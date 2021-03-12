@@ -41,7 +41,6 @@ library(html2latex)
 library(lme4)
 #> Loading required package: Matrix
 library(sjPlot)
-#> #refugeeswelcome
 
 # This is a terrible model
 model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
@@ -268,11 +267,11 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 
 ![](img/sjplot.png)
 
-Using the `sjplot2pdf()` we can transform it to .tex. We can also
-compile to pdf in one step.
+Using the `html2pdf()` we can transform it to .tex. We can also compile
+to pdf in one step.
 
     # Create tex and pdf
-    sjplot2pdf(filename = "temp.html", table_width = 13, silent = TRUE, style = TRUE, build_pdf = TRUE, clean = TRUE)
+    html2pdf(filename = "temp.html", table_width = 13, silent = TRUE, style = TRUE, build_pdf = TRUE, clean = TRUE)
 
 If we create a pdf using `pdflatex` the end result looks like this:
 
