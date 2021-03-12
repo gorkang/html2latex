@@ -14,7 +14,7 @@ sjplot2pdf(
   style = TRUE,
   silent = TRUE,
   mac = TRUE,
-  path_w2l = "."
+  path_w2l = NULL
 )
 }
 \arguments{

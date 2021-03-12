@@ -43,8 +43,10 @@ sjplot2pdf <-
            style = TRUE,
            silent = TRUE,
            mac = TRUE,
-           path_w2l = ".") {
-
+           path_w2l = NULL) {
+    if(is.null(path_w2l)){
+      path_w2l <- dir(system.file("writer2latex", package = "html2latex"))
+    }
     # Find w2l files
     w2l_file <- list.files(path = path_w2l, pattern = "w2l$", recursive = TRUE)
     if (length(w2l_file) == 0) {
