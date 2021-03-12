@@ -3,11 +3,11 @@
 #' @name html2pdf
 #' @param filename Name of the sjPlot table object
 #' @param build_pdf TRUE/FALSE
-#' @param clean TRUE/FALSE
+#' @param clean TRUE/FALSE clean intermediate files
 #' @param silent TRUE/FALSE
 #' @param path_w2l Path to the Writer2latex files
-#' @param mac when run on a Mac
-#' @param table_width With of the table
+#' @param mac TRUE when running on a Mac
+#' @param table_width Width of the table
 #' @param page_width In inches
 #' @param page_height In inches
 #' @param style makes table somewhat prettier
@@ -42,9 +42,9 @@ html2pdf <-
            clean = FALSE,
            style = TRUE,
            silent = TRUE,
-           mac = TRUE,
+           mac = FALSE,
            path_w2l = NULL) {
-    if(is.null(path_w2l)){
+    if (is.null(path_w2l)) {
       path_w2l <- system.file("extdata", package = "html2latex")
     }
     # Find w2l files
