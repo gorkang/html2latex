@@ -13,6 +13,8 @@ library("html2latex")
 
 ## Requirements
 
+Tested on Linux and Mac.  
+
 You need a working [Libreoffice](https://www.libreoffice.org/) insgtallation to convert `html` to
 `odt`. We include in this package [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/)
 for the `odt` to `tex` step. You will also need a TeX compiler if you
