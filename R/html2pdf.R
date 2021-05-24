@@ -46,6 +46,9 @@ html2pdf <-
            OS = NULL,
            path_w2l = NULL) {
 
+    # CHECK
+    if (grepl(" ", filename)) stop("filename contains spaces. Things get messy when mixing latex and spaces.\nRename the file to something like '", gsub(" ", "", filename), "' and try again.")
+
     if (is.null(path_w2l)) {
       path_w2l <- system.file("extdata", package = "html2latex")
     }
