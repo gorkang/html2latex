@@ -13,15 +13,14 @@ library("html2latex")
 
 ## Requirements
 
-Tested on Linux and Mac.  
+Fully tested on Linux. Partially tested on Mac and Windows.  
 
 You need a working [Libreoffice](https://www.libreoffice.org/) installation to convert `html` to
-`odt`. We include in this package [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/)
-for the `odt` to `tex` step. You will need a working Java installation. 
+`odt`. We include [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/)
+in this package for the `odt` to `tex` step. You will need a working Java installation. 
 You will also need a TeX compiler if you want to use the integrated pdf compilation.
 
-`html2pdf()` function uses a *Writer2latex* script which is sourced from
-the extdata folder.
+`html2pdf()` function uses a *Writer2latex* script which is sourced from the extdata folder.
 
 ## Example
 
@@ -45,6 +44,8 @@ Create a `sjPlot::tab_model()` and save it as html.
     p.style = "scientific",
     emph.p = TRUE,
     file = "temp.html")
+    
+  TAB
 ```
 
 ![](img/sjplot.png)
