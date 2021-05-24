@@ -101,9 +101,9 @@ html2pdf <-
 
     if (silent) {
       # invisible(system(paste(soffice, "--convert-to odt", filename), intern = TRUE)) # HTML to ODT
-      invisible(system2(soffice, paste0("--convert-to odt ", filename), intern = TRUE)) # HTML to ODT
+      invisible(system2(soffice, paste0("--convert-to odt ", filename))) # HTML to ODT
       # invisible(system(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
-      invisible(system2(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
+      invisible(system2(paste0(file.path(path_w2l, w2l_file), " ", odt_file)))  # ODT to TEX
     } else {
       # system(paste(soffice, "--convert-to odt", filename))
       system2(soffice, paste0("--convert-to odt ", filename))  # HTML to ODT
