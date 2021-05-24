@@ -103,7 +103,7 @@ html2pdf <-
       # system(paste(soffice, "--convert-to odt", filename))
       system2(soffice, paste0("--convert-to odt ", filename))  # HTML to ODT
       # system(paste0(file.path(path_w2l, w2l_file), " ", odt_file)) # ODT to TEX
-      system2(paste0(file.path(path_w2l, w2l_file), " ", odt_file)) # ODT to TEX
+      system2(paste0(file.path(path_w2l, w2l_file)), odt_file) # ODT to TEX
     }
 
     if (style) {
@@ -111,7 +111,7 @@ html2pdf <-
                 page_width = page_width, page_height = page_height)
     }
     if (build_pdf) {
-      build_pdf(tex_file_output, silent = silent, filename = filename,
+      build_PDF(tex_file_output, silent = silent, filename = filename,
                 pdf_file = pdf_file, pdf_file_output = pdf_file_output)
     }
     if (clean) {
@@ -160,7 +160,7 @@ clean_tex <- function(file, table_width, page_width, page_height) {
 #' @param file TeX file
 #' @keywords internal
 #' @return pdf file
-build_pdf <- function(file, silent, pdf_file, pdf_file_output, filename){
+build_PDF <- function(file, silent, pdf_file, pdf_file_output, filename){
 
   if (silent) {
     invisible(system(paste0("pdflatex ", file), intern = TRUE))
