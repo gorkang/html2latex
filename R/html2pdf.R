@@ -51,7 +51,7 @@ html2pdf <-
     }
 
     # Find w2l files
-    w2l_file <- list.files(path = path_w2l, pattern = "w2l", recursive = TRUE)
+    w2l_file <- list.files(path = path_w2l, pattern = "w2l", recursive = TRUE)[1]
 
     if (length(w2l_file) == 0) {
       stop(
