@@ -67,16 +67,21 @@ html2pdf <-
     if (is.null(OS)) OS = Sys.info()["sysname"]
 
     if (OS == "Linux") {
+
       # Necessary to run soffice command in Ubuntu 20.04
       Sys.setenv(LD_LIBRARY_PATH = "/usr/lib/libreoffice/program/")
       soffice <- "soffice"
 
     } else if (OS == "Windows") {
+
       soffice <- "C:\\Program Files\\LibreOffice\\program\\soffice.bin"
       if (!file.exists(soffice)) stop("Did not locate Libreoffice in C:\\Program Files\\LibreOffice\\program\\soffice.bin")
       if (!grepl("\\.bat", w2l_file)) w2l_file = paste0(w2l_file, ".bat")
+      if (build_pdf == TRUE) message("Cannot automatically build a pdf on Windows. I set 'build_pdf = FALSE'.\n * You can build a pdf using the tex file with pdflatex.exe. See https://tex.stackexchange.com/questions/49569/where-to-download-pdflatex-exe")
+      build_pdf = FALSE
 
     } else if (OS == "Darwin" | OS == "macOS") {
+
       soffice <- "/Applications/LibreOffice.app/Contents/MacOS/soffice"
 
     } else {
