@@ -6,7 +6,7 @@
 #' @param clean TRUE/FALSE clean intermediate files
 #' @param silent TRUE/FALSE
 #' @param path_w2l Path to the Writer2latex files
-#' @param mac TRUE when running on a Mac
+#' @param OS String identifying operating system (Linux, macOS or Windows)
 #' @param table_width Width of the table
 #' @param page_width In inches
 #' @param page_height In inches
@@ -42,13 +42,17 @@ html2pdf <-
            clean = FALSE,
            style = TRUE,
            silent = TRUE,
-           mac = FALSE,
+           # mac = FALSE,
+           OS = NULL,
            path_w2l = NULL) {
+
     if (is.null(path_w2l)) {
       path_w2l <- system.file("extdata", package = "html2latex")
     }
+
     # Find w2l files
     w2l_file <- list.files(path = path_w2l, pattern = "w2l", recursive = TRUE)
+
     if (length(w2l_file) == 0) {
       stop(
         "Writer2latex not found in folder: '", path_w2l, "'\n",
@@ -59,8 +63,27 @@ html2pdf <-
       )
     }
 
-    # Necessary to run soffice command in Ubuntu 20.04
-    Sys.setenv(LD_LIBRARY_PATH = "/usr/lib/libreoffice/program/")
+    # Operative system detection
+    if (is.null(OS)) OS = Sys.info()["sysname"]
+
+    if (OS == "Linux") {
+      # Necessary to run soffice command in Ubuntu 20.04
+      Sys.setenv(LD_LIBRARY_PATH = "/usr/lib/libreoffice/program/")
+      soffice <- "soffice"
+
+    } else if (OS == "Windows") {
+      soffice <- "C:\\Program Files\\LibreOffice\\program\\soffice.bin"
+      if (!file.exists(soffice)) stop("Did not locate Libreoffice in C:\\Program Files\\LibreOffice\\program\\soffice.bin")
+      if (!grepl("\\.bat", w2l_file)) w2l_file = paste0(w2l_file, ".bat")
+
+    } else if (OS == "Darwin" | OS == "macOS") {
+      soffice <- "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+
+    } else {
+      stop("Not sure about your operative system. Use the parameter 'OS' with either 'Linux', 'macOS' or 'Windows'")
+    }
+
+
 
     # Location of files
     odt_file <- gsub("html$", "odt", paste0(getwd(), "/", basename(filename))) # Location of generated odt file
@@ -72,32 +95,34 @@ html2pdf <-
     pdf_file_output <- gsub("html$", "pdf", paste0(getwd(), "/", filename))
 
     if (silent) {
-      if(mac) {
-        soffice <- "/Applications/LibreOffice.app/Contents/MacOS/soffice"
-      } else {
-        soffice <- "soffice"
-      }
-      invisible(system(paste(soffice, "--convert-to odt", filename), intern = TRUE)) # HTML to ODT
-      invisible(system(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
+      # invisible(system(paste(soffice, "--convert-to odt", filename), intern = TRUE)) # HTML to ODT
+      invisible(system2(soffice, paste0("--convert-to odt ", filename), intern = TRUE)) # HTML to ODT
+      # invisible(system(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
+      invisible(system2(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
     } else {
-      system(paste(soffice, "--convert-to odt", filename))
-      system(paste0(file.path(path_w2l, w2l_file), " ", odt_file))
+      # system(paste(soffice, "--convert-to odt", filename))
+      system2(soffice, paste0("--convert-to odt ", filename))  # HTML to ODT
+      # system(paste0(file.path(path_w2l, w2l_file), " ", odt_file)) # ODT to TEX
+      system2(paste0(file.path(path_w2l, w2l_file), " ", odt_file)) # ODT to TEX
     }
-    if(style) {
+
+    if (style) {
       clean_tex(tex_file_output, table_width = table_width,
                 page_width = page_width, page_height = page_height)
     }
-    if(build_pdf){
+    if (build_pdf) {
       build_pdf(tex_file_output, silent = silent, filename = filename,
                 pdf_file = pdf_file, pdf_file_output = pdf_file_output)
     }
-    if(clean){
+    if (clean) {
       clean_debris(filename)
     }
     if (filename != basename(filename)) file.copy(tex_file, tex_file_output, overwrite = TRUE)
     if (filename != basename(filename)) file.remove(gsub("html", "tex", basename(filename)))
     message("\ntex file created in: ", tex_file_output)
   }
+
+
 #' Minimal improvements to format
 #' @name clean_tex
 #' @param file TeX file
@@ -128,6 +153,7 @@ clean_tex <- function(file, table_width, page_width, page_height) {
   # Write re-formatted version
   writeLines(clean_file, file)
 }
+
 
 #' Build pdf to check
 #' @name build_pdf

@@ -1,6 +1,6 @@
 Package: html2latex
 Title: Converting sjPlot Models To LaTeX
-Version: 0.0.9000
+Version: 0.0.9100
 Authors@R: c(
     person(given = "Gorka",
     family = "Navarrete",
