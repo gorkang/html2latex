@@ -2,9 +2,10 @@
 % Please edit documentation in R/html2pdf.R
 \name{build_pdf}
 \alias{build_pdf}
+\alias{build_PDF}
 \title{Build pdf to check}
 \usage{
-build_pdf(file, silent, pdf_file, pdf_file_output, filename)
+build_PDF(file, silent, pdf_file, pdf_file_output, filename)
 }
 \arguments{
 \item{file}{TeX file}

@@ -14,7 +14,7 @@ html2pdf(
   clean = FALSE,
   style = TRUE,
   silent = TRUE,
-  mac = FALSE,
+  OS = NULL,
   path_w2l = NULL
 )
 
@@ -37,7 +37,7 @@ tex2Rmd(filename, output_file = "table.txt")
 
 \item{silent}{TRUE/FALSE}
 
-\item{mac}{TRUE when running on a Mac}
+\item{OS}{String identifying operating system (Linux, macOS or Windows)}
 
 \item{path_w2l}{Path to the Writer2latex files}
 }
