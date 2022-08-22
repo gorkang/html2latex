@@ -15,7 +15,8 @@ html2pdf(
   style = TRUE,
   silent = TRUE,
   OS = NULL,
-  path_w2l = NULL
+  path_w2l = NULL,
+  name_table = "table1"
 )
 
 tex2Rmd(filename, output_file = "table.txt")

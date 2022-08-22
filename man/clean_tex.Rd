@@ -4,7 +4,7 @@
 \alias{clean_tex}
 \title{Minimal improvements to format}
 \usage{
-clean_tex(file, table_width, page_width, page_height)
+clean_tex(file, table_width, page_width, page_height, name_table = "table1")
 }
 \arguments{
 \item{file}{TeX file}

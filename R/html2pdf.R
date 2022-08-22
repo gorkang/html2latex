@@ -13,6 +13,7 @@
 #' @param style makes table somewhat prettier
 #' @return TeX file
 #' @export
+#' @importFrom tinytex latexmk
 #'
 #' @examples
 #' \dontrun{
@@ -43,7 +44,8 @@ html2pdf <-
            style = TRUE,
            silent = TRUE,
            OS = NULL,
-           path_w2l = NULL) {
+           path_w2l = NULL,
+           name_table = "table1") {
 
     # CHECK
     if (grepl(" ", filename)) stop("filename contains spaces. Things get messy when mixing latex and spaces.\nRename the file to something like '", gsub(" ", "", filename), "' and try again.")
@@ -102,31 +104,43 @@ html2pdf <-
     pdf_file_output <- gsub("html$", "pdf", paste0(getwd(), "/", filename))
 
     if (silent) {
-      # invisible(system(paste(soffice, "--convert-to odt", filename), intern = TRUE)) # HTML to ODT
       invisible(system2(soffice, paste0("--convert-to odt ", filename))) # HTML to ODT
-      # invisible(system(paste0(file.path(path_w2l, w2l_file), " ", odt_file), intern = TRUE))  # ODT to TEX
       invisible(system2(paste0(file.path(path_w2l, w2l_file)), odt_file))  # ODT to TEX
     } else {
-      # system(paste(soffice, "--convert-to odt", filename))
+      cli::cli_h1("html -> odt")
       system2(soffice, paste0("--convert-to odt ", filename))  # HTML to ODT
-      # system(paste0(file.path(path_w2l, w2l_file), " ", odt_file)) # ODT to TEX
+      cli::cli_alert_success("odt created")
+
+      cli::cli_h1("odt -> tex")
       system2(paste0(file.path(path_w2l, w2l_file)), odt_file) # ODT to TEX
+      cli::cli_alert_success("tex created")
     }
 
     if (style) {
+      if (!silent) cli::cli_h1("Clean tex")
       clean_tex(tex_file_output, table_width = table_width,
-                page_width = page_width, page_height = page_height)
+                page_width = page_width, page_height = page_height, name_table = name_table)
+      if (!silent) cli::cli_alert_success("tex cleaned up")
+
     }
     if (build_pdf) {
-      build_PDF(tex_file_output, silent = silent, filename = filename,
-                pdf_file = pdf_file, pdf_file_output = pdf_file_output)
+      if (!silent) cli::cli_h1("tex -> pdf")
+      # build_PDF(file = tex_file_output, silent = silent, filename = filename,
+      #           pdf_file = pdf_file, pdf_file_output = pdf_file_output)
+
+      tinytex::latexmk(file = tex_file_output, pdf_file = pdf_file_output)
+      if (!silent) cli::cli_alert_success("pdf built in {pdf_file_output}")
+
     }
     if (clean) {
+      if (!silent) cli::cli_h1("Cleaning temp files")
       clean_debris(filename)
+      if (!silent) cli::cli_alert_success("All cleaned")
+
     }
     if (filename != basename(filename)) file.copy(tex_file, tex_file_output, overwrite = TRUE)
     if (filename != basename(filename)) file.remove(gsub("html", "tex", basename(filename)))
-    message("\ntex file created in: ", tex_file_output)
+    # message("\ntex file created in: ", tex_file_output)
   }
 
 
@@ -139,7 +153,7 @@ html2pdf <-
 #' @keywords internal
 #' @importFrom stringr str_count
 #' @return TeX file
-clean_tex <- function(file, table_width, page_width, page_height) {
+clean_tex <- function(file, table_width, page_width, page_height, name_table = "table1") {
   # Get rid of linejumps
   raw_file <- readLines(file)
   clean_file <- gsub("\\\\newline", "", raw_file)
@@ -155,29 +169,14 @@ clean_tex <- function(file, table_width, page_width, page_height) {
   clean_file <- append(clean_file, "\\usepackage{longtable}", after = supertabular_line_n2)
   clean_file <- append(clean_file, paste0("\\usepackage[paperheight=", page_height, "in,paperwidth=", page_width, "in]{geometry}"), after = document_class_line) # Page width
 
-  clean_file <- gsub("\\\\end\\{supertabular\\}", "\\\\end\\{longtable\\}", clean_file)
+  clean_file <- gsub("\\\\end\\{supertabular\\}", paste0("\\\\label\\{", name_table, "\\}\n\\\\end\\{longtable\\}"), clean_file)
+  # clean_file <- gsub("\\\\end\\{supertabular\\}", paste0("\\\\end\\{longtable\\}"), clean_file)
 
   # Write re-formatted version
   writeLines(clean_file, file)
 }
 
 
-#' Build pdf to check
-#' @name build_pdf
-#' @param file TeX file
-#' @keywords internal
-#' @return pdf file
-build_PDF <- function(file, silent, pdf_file, pdf_file_output, filename){
-
-  if (silent) {
-    invisible(system(paste0("pdflatex ", file), intern = TRUE))
-  } else {
-    system(paste0("pdflatex ", file))
-  }
-
-  if (filename != basename(filename)) file.copy(pdf_file, pdf_file_output, overwrite = TRUE)
-  message("\npdf file created in: ", pdf_file_output)
-}
 
 #' Clean up latex debris
 #' @name clean_debris
@@ -185,9 +184,9 @@ build_PDF <- function(file, silent, pdf_file, pdf_file_output, filename){
 #' @keywords internal
 #' @return pdf file
 clean_debris <- function(filename) {
-  file.remove(gsub("html", "out", basename(filename)))
-  file.remove(gsub("html", "aux", basename(filename)))
-  file.remove(gsub("html", "log", basename(filename)))
+  # file.remove(gsub("html", "out", basename(filename)))
+  # file.remove(gsub("html", "aux", basename(filename)))
+  # file.remove(gsub("html", "log", basename(filename)))
   if (filename != basename(filename)) file.remove(gsub("html", "pdf", basename(filename)))
   # Clean up odt
   file.remove(gsub("html", "odt", basename(filename)))

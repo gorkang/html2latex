@@ -74,7 +74,7 @@ header-includes:
 
 ### 2. Extract the table bit from the tex file
 
-The tex file created with html2pdf can be rendered as a pdf by opening the tex file in Rstudio and using the `Compile PDF` button. But if you want to use the table code (from `\begin{longtable}` to `\end{longtable}`), we need to extract it first.  
+The tex file created with html2pdf can be rendered as a pdf by opening the tex file in RStudio and using the `Compile PDF` button. But if you want to use the table code (from `\begin{longtable}` to `\end{longtable}`), we need to extract it first.  
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -125,6 +125,6 @@ And the result will look like this:
 
 ## Manually input latex code
 
-Alternativelly, you can manually insert the contents of table.txt in a chunk staring with ` ```{=latex}`  
+Alternatively, you can manually insert the contents of table.txt in a chunk staring with ` ```{=latex}`  
 
 See: https://bookdown.org/yihui/rmarkdown-cookbook/raw-latex.html   

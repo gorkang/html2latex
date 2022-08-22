@@ -1,0 +1,32 @@
+\begin{longtable}{p{13em}lccc}
+\hline
+{\bfseries ~} &
+\multicolumn{3}{m{2.3920598in}}{\centering{\bfseries mpg}}\\
+{\itshape Predictors} &
+\centering{\itshape Estimates} &
+\centering{\itshape CI} &
+\centering\arraybslash{\itshape p}\\\hline
+(Intercept) &
+\centering 49.04 &
+\centering 39.23~--~58.85 &
+\centering\arraybslash \textstyleStrongEmphasis{1.144e-22}\\
+cyl &
+\centering {}-3.41 &
+\centering {}-5.05~--~-1.76 &
+\centering\arraybslash \textstyleStrongEmphasis{5.058e-05}\\
+disp &
+\centering {}-0.15 &
+\centering {}-0.22~--~-0.07 &
+\centering\arraybslash \textstyleStrongEmphasis{2.748e-04}\\
+cyl * disp &
+\centering 0.02 &
+\centering 0.01~--~0.03 &
+\centering\arraybslash \textstyleStrongEmphasis{1.354e-03}\\
+N \textsubscript{vs} &
+\multicolumn{3}{m{2.3920598in}}{2}\\\hline
+Observations &
+\multicolumn{3}{m{2.3920598in}}{32}\\
+Marginal R\textsuperscript{2} / Conditional R\textsuperscript{2} &
+\multicolumn{3}{m{2.3920598in}}{0.809 / NA}\\
+\label{table1}
+\end{longtable}

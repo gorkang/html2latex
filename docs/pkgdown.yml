@@ -1,7 +1,7 @@
-pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   html2latex: html2latex.html
-last_built: 2021-09-15T14:20Z
+last_built: 2022-08-22T08:36Z
 

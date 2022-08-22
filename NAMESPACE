@@ -3,3 +3,4 @@
 export(html2pdf)
 export(tex2Rmd)
 importFrom(stringr,str_count)
+importFrom(tinytex,latexmk)

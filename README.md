@@ -13,14 +13,27 @@ library("html2latex")
 
 ## Requirements
 
-Fully tested on Linux. Partially tested on Mac and Windows.  
+Fully tested on Linux. Partially tested on Mac and Windows.
 
-You need a working [Libreoffice](https://www.libreoffice.org/) installation to convert `html` to
-`odt`. We include [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/)
-in this package for the `odt` to `tex` step. You will need a working Java installation. 
-You will also need a TeX compiler if you want to use the integrated pdf compilation.
+1)  You need a working [Libreoffice](https://www.libreoffice.org/)
+    installation to convert `html` to `odt`  
+2)  We include
+    [Writer2latex](https://sourceforge.net/projects/writer2latex/files/writer2latex/)  
+    in this package for the `odt` to `tex` step  
+3)  You will need a working Java installation  
+4)  You will also need a TeX compiler if you want to use the integrated
+    pdf compilation (you can try installing `tinytex` and
+    `tinytex::install_tinytex()`)
 
-`html2pdf()` function uses a *Writer2latex* script which is sourced from the extdata folder.
+`html2pdf()` function uses a *Writer2latex* script which is sourced from
+the extdata folder.
+
+## Issues
+
+If something does not work, make sure to have all the requirements
+above. You can use `silent = FALSE` in `html2pdf()` to see in which step
+things are failing. If nothing works, do send an issue including a
+reproducible example.
 
 ## Example
 
@@ -44,11 +57,9 @@ Create a `sjPlot::tab_model()` and save it as html.
     p.style = "scientific",
     emph.p = TRUE,
     file = "temp.html")
-    
-  TAB
 ```
 
-![](img/sjplot.png)
+![](man/figures/sjplot.png)
 
 Using the `html2pdf()` we can transform the html output of
 `sjPlot::tab_model()` to .tex. We can also compile to pdf in one step
@@ -59,16 +70,17 @@ with the parameter `build_pdf = TRUE`.
 
 html2pdf(filename = "temp.html", 
   table_width = 13, 
-   silent = TRUE, 
+   silent = FALSE, 
    style = TRUE, 
    build_pdf = TRUE, 
-   clean = TRUE)
+   clean = TRUE,
+   name_table = "table1")
 
 #> pdf file created in: /.../html2latex/temp.pdf
 #> tex file created in: /.../html2latex/temp.tex
 ```
 
-![](img/html2latex.png)
+![](man/figures/html2latex.png)
 
 ## tex2Rmd
 
@@ -101,7 +113,7 @@ tex2Rmd("temp.tex")
 ```
 
 The tex file created with html2pdf can be rendered as a pdf by opening
-the tex file in Rstudio and using the `Compile PDF` button. But if you
+the tex file in RStudio and using the `Compile PDF` button. But if you
 want to use the table specific code inside a Rmd file (from
 `\begin{longtable}` to `\end{longtable}`), we need to extract it first.
 This is automatically done by the ´tex2Rmd()´ function.
@@ -131,7 +143,7 @@ compiling via RStudio fails)
 
 ## Manually input latex code
 
-Alternativelly, you can manually insert the contents of table.txt in a
+Alternatively, you can manually insert the contents of table.txt in a
 chunk staring with ```` ```{=latex} ````
 
 See: <https://bookdown.org/yihui/rmarkdown-cookbook/raw-latex.html>
