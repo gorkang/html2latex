@@ -49,7 +49,7 @@ Create a `sjPlot::tab_model()` and save it as html.
   
   # We save the sjPlot table to an .html file
   
-  TAB = sjPlot::tab_model(
+  sjPlot::tab_model(
     model,
     show.r2 = TRUE,
     show.icc = FALSE,
