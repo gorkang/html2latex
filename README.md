@@ -35,7 +35,7 @@ above. You can use `silent = FALSE` in `html2pdf()` to see in which step
 things are failing. If nothing works, do send an issue including a
 reproducible example.
 
-There should be no spaces in the path to your table, or in the table file name.  
+**There should be no spaces in the path to your table, or in the table file name.**  
 
 
 ## Example

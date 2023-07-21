@@ -37,7 +37,7 @@ library(sjPlot)
 model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
 
 # We save the sjPlot table to an .html file
-table = sjPlot::tab_model(model, file = "temp.html")
+sjPlot::tab_model(model, file = "temp.html")
 
 # Create tex and pdf
 # This readme was knitted on a Mac, therefore mac = TRUE

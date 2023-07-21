@@ -42,7 +42,7 @@ library(sjPlot)
 model = lmer(mpg ~ cyl * disp + (1|vs), mtcars)
 
 # We save the sjPlot table to an .html file
-table = sjPlot::tab_model(model, file = "temp.html")
+sjPlot::tab_model(model, file = "temp.html")
 
 # Create tex
 html2pdf(filename = "temp.html", table_width = 13, build_pdf = TRUE, silent = TRUE)
